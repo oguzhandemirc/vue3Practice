@@ -1,22 +1,54 @@
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
-    <li v-for="(movie, index) in dataMovie" :key="index">{{ movie.title }}
-      {{ movie.overview }}
-      
-      <img :src="`https://image.tmdb.org/t/p/w500/${movie.poster_path}`" alt="movie poster" />
-
-    </li>
-
-    <button @click="getReq">getreq</button>
-    <button @click="getRes">getresponse</button>
+  <div class="HomePage">
+    <div class="border-4 flex">
+      <h1 class="mt-5">This is Home page</h1>
+    </div>
+    <div class="border-4">
+    <div class="border-4">
+      <ul class="flex flex-wrap justify-center">
+        <li v-for="(movie, index) in dataMovie" :key="index" class="p-6">
+          <div class="max-w-xs rounded overflow-hidden shadow-lg">
+            <img class="w-full"
+              :src="`https://image.tmdb.org/t/p/w500/${movie.poster_path}`"
+              alt="movie poster"
+            />
+            <div class="px-6 py-4">
+              <div class="font-bold text-xl mb-2">{{ movie.title }}</div>
+              <p class="text-gray-700 text-base">
+                {{ movie.overview }}
+              </p>
+            </div>
+            <div class="px-6 pt-4 pb-2">
+              <span
+                class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+                >{{ movie.release_date }}
+              </span>
+              <span
+                class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+                >{{ movie.original_language.toUpperCase() }}</span
+              >
+              <span
+                class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+                >{{ movie.popularity }}</span
+              >
+            </div>
+          </div>
+        </li>
+      </ul>
+      <button @click="getReq">getreq</button>
+      <button @click="getRes">getresponse</button>
+    </div>
   </div>
+</div>
 </template>
 
 <script setup>
 import axios from "axios";
 import { onMounted, ref } from "vue";
 
+const cosolelog = () => {
+  console.log(dataMovie.value);
+};
 const getRes = () => {
   console.log(dataMovie.value);
 };
@@ -25,7 +57,7 @@ const getReq = () => {
   axios
     .request(options)
     .then(function (response) {
-      dataMovie.value = response.data.results;
+      dataMovie.value = response.data.results.slice(0, 10);
     })
     .catch(function (error) {
       const errorData = error;
@@ -46,6 +78,8 @@ const options = {
 };
 onMounted(() => {
   getReq();
+
+  getRes();
 });
 </script>
 <style></style>
