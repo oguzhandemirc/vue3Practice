@@ -1,22 +1,46 @@
 <template>
   <div class="HomePage">
-    <div class="border-4 flex">
-      <h1 class="mt-5">This is Home page</h1>
+    <div class="flex flex-col">
+      <h1
+        class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white mt-5 justify-center flex"
+      >
+        movie
+        <mark class="px-2 text-white bg-blue-600 rounded dark:bg-blue-500"
+          >list</mark
+        >
+      </h1>
+      <p
+        class="text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400 flex justify-center"
+      >
+        don't waste your time
+      </p>
     </div>
-    <div class="border-4">
-    <div class="border-4">
-      <ul class="flex flex-wrap justify-center">
-        <li v-for="(movie, index) in dataMovie" :key="index" class="p-6">
-          <div class="max-w-xs rounded overflow-hidden shadow-lg">
-            <img class="w-full"
-              :src="`https://image.tmdb.org/t/p/w500/${movie.poster_path}`"
-              alt="movie poster"
-            />
-            <div class="px-6 py-4">
+
+    <div class="px-10 pt-10">
+      <ul
+        class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 justify-center"
+      >
+        <li
+          v-for="(movie, index) in dataMovie"
+          :key="index"
+          class="mb-5 rounded overflow-hidden shadow-lg"
+        >
+          <img
+            class="w-full"
+            :src="`https://image.tmdb.org/t/p/w500/${movie.poster_path}`"
+            alt="movie poster"
+          />
+          <div class="	">
+            <div class="p-6">
               <div class="font-bold text-xl mb-2">{{ movie.title }}</div>
               <p class="text-gray-700 text-base">
                 {{ movie.overview }}
               </p>
+              <br>
+              <button @click="console.log(dataMovie)">
+                <RouterLink to="/:">Home</RouterLink>
+
+                Details</button>
             </div>
             <div class="px-6 pt-4 pb-2">
               <span
@@ -29,17 +53,18 @@
               >
               <span
                 class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+                >{{ movie.id }}</span
+              >
+              <span
+                class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
                 >{{ movie.popularity }}</span
               >
             </div>
           </div>
         </li>
       </ul>
-      <button @click="getReq">getreq</button>
-      <button @click="getRes">getresponse</button>
     </div>
   </div>
-</div>
 </template>
 
 <script setup>
@@ -57,7 +82,7 @@ const getReq = () => {
   axios
     .request(options)
     .then(function (response) {
-      dataMovie.value = response.data.results.slice(0, 10);
+      dataMovie.value = response.data.results.slice(0, 8);
     })
     .catch(function (error) {
       const errorData = error;
