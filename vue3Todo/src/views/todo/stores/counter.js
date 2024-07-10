@@ -2,7 +2,7 @@
 // ./src/stores/counter.js
 
 import { defineStore } from "pinia";
-import { ref } from "vue";
+import { onUpdated, ref } from "vue";
 
 export const useCounterStore = defineStore("counter", {
   state: () => ({
@@ -11,27 +11,8 @@ export const useCounterStore = defineStore("counter", {
     message: ["1", "2", "3"],
     messageList: [],
   }),
+  
   actions: {
-    // addTodo() {
-    //   const newTodo = document.querySelector("#todos");
-    //   const newTodoValue = newTodo.value;
-    //   console.log(newTodoValue);
-    //   //   if (newTodo.value === "") {
-    //   //     alert("Boş bırakılamaz");
-    //   //   } else {
-    //   //     this.list.value.push({ text: newTodo.value, done: false });
-    //   //   }
-    //   //   console.log(this.list.value + "list");
-    //   //   newTodo.value = "";
-    //   //   newTodo.focus();
-    //   //   // console.log(list.value);
-    //   localStorage.setItem("my-items", JSON.stringify(newTodoValue)); //
-    //   console.log(localStorage.getItem("my-items"));
-    //   this.list = JSON.parse(localStorage.getItem("my-items"));
-    //   console.log(this.list);
-
-    //   //   console.log(this.list);
-    // },
 
     saveTodo() {
       const textarea = document.querySelector("#todos");
@@ -40,9 +21,11 @@ export const useCounterStore = defineStore("counter", {
         console.log("Boş bırakılamaz");
         window.alert("Boş bırakılamaz");
       } else {
-        localStorage.setItem("key", JSON.stringify(this.messageList));
+        console.log(this.messageList);
         console.log(localStorage.getItem("key"));
+      
       }
+    
     },
     getTodo() {
       this.messageList = JSON.parse(localStorage.getItem("key"));
