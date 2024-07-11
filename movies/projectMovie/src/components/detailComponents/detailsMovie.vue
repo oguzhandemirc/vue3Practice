@@ -57,33 +57,47 @@
 </template>
 
 <script setup>
-import { onMounted, ref, watch, computed, reactive } from "vue";
+import { onMounted, ref, computed } from "vue";
 import { useRoute } from "vue-router";
-import { useCounterStore } from "@/stores/counter";
+import axios from "axios";
 
 const route = useRoute();
-const store = useCounterStore();
 const localID = ref(route.params.id);
-const detailInfo = ref([]);
-const dateMovie = reactive({});
+const detailInfo = ref({});
 
-const loadDetail = () => {
-  store.dataMovie.forEach((element) => {
-    if (element.id == localID.value) {
-      detailInfo.value = element;
-
-      console.log(dateMovie.date);
+const loadDetail = async () => {
+  try {
+    const options = {
+      method: "GET",
+      url: "https://api.themoviedb.org/3/movie/popular",
+      params: { language: "en-US", page: "1" },
+      headers: {
+        accept: "application/json",
+        Authorization:
+          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwMGQ5NTg2ZjVkNjhlOTEzYzlhYzgxOWVjMTMzNzA3YSIsIm5iZiI6MTcyMDYxMzI1My45OTkyNjIsInN1YiI6IjY2OGU2MTA3NmNhMDRlZDhkYTBkNDFkOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.AGrSrAuTuMNMrDeimQqxF7n9YXnx45eaOVKqiC1F3gg",
+      },
+    };
+    const response = await axios.request(options);
+    const movie = response.data.results.find((element) => element.id == localID.value);
+    if (movie) {
+      detailInfo.value = movie;
     }
-  });
+  } catch (error) {
+    console.error(error);
+  }
 };
+
+// Yıl bilgisini hesapla
 const releaseYear = computed(() => {
   return detailInfo.value.release_date
     ? detailInfo.value.release_date.substring(0, 4)
     : "";
 });
+
+// Bileşen yüklendiğinde veriyi çek
 onMounted(() => {
   loadDetail();
-  console.log(releaseYear);
 });
 </script>
+
 <style scoped></style>
