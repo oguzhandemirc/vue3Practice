@@ -12,8 +12,8 @@
           class="text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white"
         >
           {{ detailInfo.title }}
-          <span class="text-blue-600 dark:text-blue-500"
-            >( {{ detailInfo.release_date }} )</span
+          <span class="text-blue-600 dark:text-blue-500 relasedate"
+            >( {{ releaseYear }} )</span
           >
         </h1>
         <p class="uppercase">
@@ -57,29 +57,33 @@
 </template>
 
 <script setup>
-import { onMounted, ref, watch, computed } from "vue";
+import { onMounted, ref, watch, computed, reactive } from "vue";
 import { useRoute } from "vue-router";
-
 import { useCounterStore } from "@/stores/counter";
 
 const route = useRoute();
 const store = useCounterStore();
 const localID = ref(route.params.id);
 const detailInfo = ref([]);
-const movieLang = detailInfo.original_language;
+const dateMovie = reactive({});
 
 const loadDetail = () => {
   store.dataMovie.forEach((element) => {
     if (element.id == localID.value) {
-      console.log(true);
       detailInfo.value = element;
 
-      console.log(detailInfo.value.release_date); // console.log(detailTitle.value);
+      console.log(dateMovie.date);
     }
   });
 };
-
+const releaseYear = computed(() => {
+  return detailInfo.value.release_date
+    ? detailInfo.value.release_date.substring(0, 4)
+    : "";
+});
 onMounted(() => {
   loadDetail();
+  console.log(releaseYear);
 });
 </script>
+<style scoped></style>

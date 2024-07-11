@@ -11,7 +11,7 @@ export const useCounterStore = defineStore("counter", () => {
       })
       .catch(function (error) {
         const errorData = error;
-        console.log(errorData);
+        console.log(errorData); 
         console.error(error);
       });
   };
