@@ -16,13 +16,18 @@
           />
           <div class="	">
             <div class="p-6">
-              <div class="font-bold text-xl mb-2">{{ movie.title }}</div>
+              <div class="font-bold text-2xl mb-2">{{ movie.title }}</div>
               <p class="text-gray-700 text-base">
                 {{ movie.overview }}
               </p>
               <br />
               <RouterLink :to="`/about/` + movie.id">
-                <button @click="console.log(movie.id)">Home Details</button></RouterLink
+                <button
+                  @click="console.log(movie.id)"
+                  class="hover:text-blue-600 font-bold"
+                >
+                  Details
+                </button></RouterLink
               >
             </div>
             <div class="px-6 pt-4 pb-2">

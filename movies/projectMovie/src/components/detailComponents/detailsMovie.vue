@@ -3,7 +3,7 @@
     <div class="flex items-center">
       <div>
         <img
-          class="rounded-2xl"
+          class="rounded-2xl shadow-2xl"
           :src="`https://image.tmdb.org/t/p/w500/${detailInfo.poster_path}`"
         />
       </div>
