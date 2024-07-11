@@ -1,9 +1,8 @@
-import { ref, computed, onMounted } from "vue";
+import { ref,onMounted } from "vue";
 import { defineStore } from "pinia";
 import axios from "axios";
 export const useCounterStore = defineStore("counter", () => {
   const dataMovie = ref([]);
-  const test = ref("test");
   const getReq = () => {
     axios
       .request(options)
@@ -31,5 +30,5 @@ export const useCounterStore = defineStore("counter", () => {
     getReq();
   });
 
-  return { dataMovie, getReq, options,test };
+  return { dataMovie, getReq, options };
 });
