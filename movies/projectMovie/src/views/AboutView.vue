@@ -1,21 +1,5 @@
 <template>
   <div class="HomePage">
-    <div class="flex flex-col">
-      <h1
-        class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white mt-5 justify-center flex"
-      >
-        movie
-        <mark class="px-2 text-white bg-blue-600 rounded dark:bg-blue-500"
-          >list</mark
-        >
-      </h1>
-      <p
-        class="text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400 flex justify-center"
-      >
-        don't waste your time
-      </p>
-    </div>
-
     <div class="px-10 pt-10">
       <ul
         class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 justify-center"
@@ -37,10 +21,8 @@
                 {{ movie.overview }}
               </p>
               <br />
-              <RouterLink :to="`/about/`+ movie.id">
-                <button @click="console.log(movie.id)">
-                  Home Details
-                </button></RouterLink
+              <RouterLink :to="`/about/` + movie.id">
+                <button @click="console.log(movie.id)">Home Details</button></RouterLink
               >
             </div>
             <div class="px-6 pt-4 pb-2">
@@ -69,7 +51,7 @@
 </template>
 
 <script setup>
-import {useCounterStore} from "@/stores/counter";
+import { useCounterStore } from "@/stores/counter";
 const store = useCounterStore();
 // import axios from "axios";
 // import { onMounted, ref } from "vue";
