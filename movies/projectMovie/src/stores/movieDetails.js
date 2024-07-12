@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { ref, onMounted, computed, watch, watchEffect } from "vue";
+import { ref, onMounted, computed, watch, watchEffect, reactive } from "vue";
 import { useRoute } from "vue-router";
 import axios from "axios";
 
@@ -34,7 +34,6 @@ export const usemovieDetailsStore = defineStore("movieDetails", () => {
     : "";
 });
     
-
 
   watch(
     () => route.params.id, 
