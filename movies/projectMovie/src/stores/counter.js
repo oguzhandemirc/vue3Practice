@@ -20,7 +20,7 @@ export const useCounterStore = defineStore("counter", () => {
     await axios
       .request(options)
       .then(function (response) {
-        dataMovie.value = response.data.results.slice(0, 8);
+        dataMovie.value = response.data.results.slice(0, 20);
       })
       .catch(function (error) {
         console.error(error);

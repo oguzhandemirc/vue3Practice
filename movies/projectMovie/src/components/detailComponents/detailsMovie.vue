@@ -21,34 +21,39 @@
           {{ movieStore.detailInfo.original_language }}
         </p>
         <div
-          class="mt-5 text-4xl font-extrabold leading-none tracking-tight md:text-5xl lg:text-3xl dark:text-white"
+          class="mt-5 mb-1 text-4xl font-extrabold leading-none tracking-tight md:text-5xl lg:text-3xl dark:text-white"
         >
           <h3>
-            <span class="text-red-600 text-5xl">{{
-              movieStore.detailInfo.vote_average
-            }}</span>
-            <span> Raiting </span>
+            <span
+              class="text-red-600 text-5xl"
+              v-if="movieStore.detailInfo && movieStore.detailInfo.vote_average"
+            >
+              {{ movieStore.detailInfo.vote_average.toString().substring(0, 3) }}
+            </span>
+            <span class="ml-1"> Raiting </span>
           </h3>
         </div>
         <div class="flex">
           <h3 class="lg:text-2xl">
-            <span class="text-blue-600 dark:text-blue-500 lg:text-3xl font-extrabold">{{
-              movieStore.detailInfo.vote_count
-            }}</span>
-            Kişi Tarafından Oylandı
+            <span class="text-blue-600 dark:text-blue-500 lg:text-3xl font-extrabold">
+              {{
+                movieStore.detailInfo?.vote_count?.toString().replace(".", "") ?? "N/A"
+              }}
+            </span>
+            Times Voted
           </h3>
         </div>
         <div class="flex text-3xl font-extrabold">
           <p>
-            {{ movieStore.detailInfo.popularity }}
-            <span class="font-normal text-2xl">Kişi Tarafından İzledi</span>
+            {{ movieStore.detailInfo?.popularity?.toString().replace(".", "") ?? "N/A" }}
+            <span class="font-normal text-2xl">Times Watched</span>
           </p>
         </div>
         <div>
           <h2
             class="mt-5 text-4xl font-extrabold leading-none tracking-tight md:text-5xl lg:text-3xl dark:text-white"
           >
-            Özet
+            Overview
           </h2>
           <div class="mt-4 font-extralight w-3/6">
             <p>{{ movieStore.detailInfo.overview }}</p>
