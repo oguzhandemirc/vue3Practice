@@ -63,7 +63,8 @@
 import { onMounted, watch, watchEffect } from "vue";
 import { usemovieDetailsStore } from "@/stores/movieDetails.js";
 const movieStore = usemovieDetailsStore();
-watchEffect(() => {
+
+onMounted(() => {
   movieStore.reqDetail();
 });
 </script>

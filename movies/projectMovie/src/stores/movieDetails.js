@@ -33,14 +33,16 @@ export const usemovieDetailsStore = defineStore("movieDetails", () => {
     ? detailInfo.value.release_date.substring(0, 4)
     : "";
 });
+    
 
-watch(
-    () => route.params.id,
-    (newId) => {
-      localID.value = newId;
+
+  watch(
+    () => route.params.id, 
+    (newVal, oldVal) => { 
+      localID.value = newVal;
+      console.log("newVal", newVal, "+", "oldVal", oldVal);
     }
   );
-
 
   return {reqDetail, detailInfo,localID,releaseYear};
 });
