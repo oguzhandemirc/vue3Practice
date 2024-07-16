@@ -3,18 +3,75 @@
     <div class="px-10 pt-3">
       <div class="flex justify-center pb-3">
         <form @submit.prevent="">
-          <input
+          <!-- <input
             v-model="store.searchTerm"
             type="text"
             id="first_name"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder="Ara"
             required
+          /> -->
+        </form>
+
+        <form class="pl-4 flex flex-col flex items-center justify-center">
+          <input
+            v-model="store.searchAPI"
+            type="text"
+            id="first_name"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 flex items-center justify-center documentInput"
+            placeholder="Apiden Sorgula"
+            required
           />
+          <button
+            class="flex items-center justify-center bg-blue-500 hover:bg-blue-700 text-white font-bold mt-3 py-2 px-10 rounded-full"
+            @click.prevent="store.getReqSearch(), store.cleaning()"
+          >
+            {{ store.buttonText }}
+          </button>
         </form>
       </div>
       <ul
-        class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 justify-center"
+        class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 justify-center arrayList"
+      >
+        <li
+          v-for="film in store.movies.slice(0, 3)"
+          :key="film.id"
+          class="mb-5 rounded overflow-hidden shadow-lg"
+        >
+          <img
+            class="w-full"
+            :src="`https://image.tmdb.org/t/p/w500/${film.poster_path}`"
+            alt="movie poster"
+          />
+          <div class="p-6">
+            <div class="font-bold text-2xl mb-2">{{ film.title }}</div>
+            <p class="text-gray-700 text-base">
+              {{ film.overview }}
+            </p>
+          </div>
+          <div class="px-6 pt-4 pb-2">
+            <span
+              class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+              >{{ film.release_date }}</span
+            >
+            <span
+              class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+              >{{ film.original_language }}</span
+            >
+            <span
+              class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+              >{{ film.id }}</span
+            >
+            <span
+              class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+              >{{ film.popularity }}</span
+            >
+          </div>
+        </li>
+      </ul>
+      <!-- apiden arama son -->
+      <ul
+        class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 justify-center documentList"
       >
         <li
           v-for="(movie, index) in store.filteredMovie"
@@ -62,7 +119,9 @@
         </li>
       </ul>
     </div>
-    <div class="flex items-center border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
+    <div
+      class="flex items-center border-t border-gray-200 bg-white px-4 py-3 sm:px-6 pagination"
+    >
       <div class="flex flex-1 justify-start">
         <p class="text-sm text-gray-700">
           Showing
@@ -74,7 +133,7 @@
           <span class="font-medium">{{ store.maxPage }}</span>
         </p>
       </div>
-      <div class="hidden sm:flex sm:flex-1 justify-end">
+      <div class="sm:flex sm:flex-1 justify-end apilist">
         <ul class="flex isolate inline-flex -space-x-px rounded-md shadow-sm">
           <li>
             <button
